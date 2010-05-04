@@ -888,7 +888,7 @@ class lime_harness extends lime_registration
       $this->stats['files'][$file] = array();
       $stats = &$this->stats['files'][$file];
 
-      $relative_file = $this->strip_base_dir($file);
+      $relative_file = $this->get_relative_file($file);
 
       $test_file = tempnam(sys_get_temp_dir(), 'lime');
       $result_file = tempnam(sys_get_temp_dir(), 'lime');
@@ -1005,7 +1005,7 @@ EOF
         {
           continue;
         }
-        $relative_file = $this->strip_base_dir($file);
+        $relative_file = $this->get_relative_file($file);
 
         if (isset($stat['output'][0]))
         {
@@ -1041,7 +1041,7 @@ EOF
             if ($first)
             {
               $this->output->echoln('');
-              $this->output->error($this->strip_base_dir($testsuite['file']).$this->extension);
+              $this->output->error($this->get_relative_file($testsuite['file']).$this->extension);
               $first = false;
             }
 
@@ -1219,7 +1219,7 @@ EOF;
       $total_php_lines += $total_lines;
       $total_covered_lines += count($covered_lines);
 
-      $relative_file = $this->strip_base_dir($file);
+      $relative_file = $this->get_relative_file($file);
       $output->echoln(sprintf("%-70s %3.0f%%", substr($relative_file, -min(70, strlen($relative_file))), $percent), $percent == 100 ? 'INFO' : ($percent > 90 ? 'PARAMETER' : ($percent < 20 ? 'ERROR' : '')));
       if ($this->verbose && $is_covered && $percent != 100)
       {
