@@ -13,7 +13,7 @@
  *
  * @package    lime
  * @author     Fabien Potencier <fabien.potencier@gmail.com>
- * @version    SVN: $Id$
+ * @version    SVN: $Id: lime.php 29529 2010-05-19 13:41:48Z fabien $
  */
 class lime_test
 {
@@ -38,7 +38,7 @@ class lime_test
       'force_colors'    => false,
       'output'          => null,
       'verbose'         => false,
-      'error_reporting' => true,
+      'error_reporting' => false,
     ), $options);
 
     $this->output = $this->options['output'] ? $this->options['output'] : new lime_output($this->options['force_colors']);
@@ -295,7 +295,7 @@ class lime_test
     // under some unknown conditions the sprintf() call causes a segmentation fault
     // when placed directly in the eval() call
     eval($php);
-    
+
     if (!$this->ok($result, $message))
     {
       $this->set_last_test_errors(array(sprintf("      %s", str_replace("\n", '', var_export($exp1, true))), sprintf("          %s", $op), sprintf("      %s", str_replace("\n", '', var_export($exp2, true)))));
@@ -616,7 +616,7 @@ class lime_output
       $message .= sprintf("\n(in %s on line %s)", $file, $line);
     }
 
-  	// some error messages contain absolute file paths
+    // some error messages contain absolute file paths
     $message = $this->strip_base_dir($message);
 
     $space = $this->colorizer->colorize(str_repeat(' ', 71), 'RED_BAR')."\n";
